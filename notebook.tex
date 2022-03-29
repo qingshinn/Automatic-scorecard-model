@@ -1,0 +1,1882 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{?????GitHub\_v1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Table of Contents{}
+
+{{1~~}报告目的}
+
+{{2~~}数据来源}
+
+{{3~~}名词解释}
+
+{{4~~}数据读取\&基本情况查看}
+
+{{5~~}数据预处理}
+
+{{5.1~~}异常值检测\&处理}
+
+{{5.2~~}特征衍生}
+
+{{5.3~~}缺失值检测\&处理}
+
+{{5.3.1~~}缺失过多特征删除}
+
+{{5.3.2~~}直接填充默认缺失值}
+
+{{6~~}特征筛选}
+
+{{6.1~~}psi筛选}
+
+{{6.2~~}随机森林筛选特征}
+
+{{6.3~~}iv筛选}
+
+{{6.4~~}人工去除偏事后特征\&iv箱数过多特征}
+
+{{6.5~~}相关性筛选}
+
+{{6.6~~}分箱调整}
+
+{{6.6.1~~}自动分箱调整}
+
+{{6.6.2~~}针对自动调整分箱未单调变量\_手动调整分箱}
+
+{{6.6.3~~}调整后的分箱再使用iv筛选一轮}
+
+{{6.7~~}woe编码后相关性\&多重共线性筛选}
+
+{{6.8~~}显著性筛选}
+
+{{6.9~~}剔除系数和其他系数符号不一致的特征}
+
+{{7~~}模型训练和评价}
+
+{{8~~}分数映射\&分数分布}
+
+{{8.1~~}分数刻度\&各入模变量相应分箱得分}
+
+{{8.2~~}训练集\&验证集\&时间外样本分数转换}
+
+{{8.3~~}训练集\&验证集\&时间外样本分数分箱分布}
+
+    \section{评分卡建模模板}\label{ux8bc4ux5206ux5361ux5efaux6a21ux6a21ux677f}
+
+    author:33
+
+date:2020/4/6
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}隐藏导出html和pdf里面的代码}
+        \PY{c+c1}{\PYZsh{}这个在你自己编辑notebook时不起作用，对导出结果中所有代码起作用：导出html或者pdf中是没有代码的}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+        \PY{k+kn}{import} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{as} \PY{n+nn}{di}
+        \PY{n}{di}\PY{o}{.}\PY{n}{display\PYZus{}html}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}script\PYZgt{}jQuery(function() }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{if (jQuery(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{body.notebook\PYZus{}app}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{).length == 0) }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{ jQuery(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{.input\PYZus{}area}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{).toggle(); jQuery(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{.prompt}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{).toggle();\PYZcb{}\PYZcb{});\PYZlt{}/script\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{raw}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{CSS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{\PYZsh{}notebook div.output\PYZus{}subarea }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{max\PYZhy{}width:100}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{;\PYZcb{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}} \PY{c+c1}{\PYZsh{}changes output\PYZus{}subarea width to 100\PYZpc{} (from 100\PYZpc{} \PYZhy{} 14ex)}
+        \PY{n}{HTML}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}style\PYZgt{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZlt{}/style\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CSS}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}包加载}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{os} \PY{c+c1}{\PYZsh{}\PYZsh{}显示工作路径，修改工作路径的包}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}\PY{c+c1}{\PYZsh{}\PYZsh{}是python数值计算基石，听过多种数据结构，算法以及设计计算所需的接口}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}\PY{c+c1}{\PYZsh{}\PYZsh{}提供了高级数据结构和函数，dataframe,series}
+        \PY{k+kn}{import} \PY{n+nn}{math} 
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}\PY{c+c1}{\PYZsh{}\PYZsh{}统计分析包，方差分析，时间序列分析，非参数估计 import statsmodels.api as sm}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{outliers\PYZus{}influence} \PY{k}{import} \PY{n}{variance\PYZus{}inflation\PYZus{}factor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics} 
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}\PY{p}{,}\PY{n}{\PYZus{}tree}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}可视化}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} \PY{c+c1}{\PYZsh{}\PYZsh{}python里适用最广泛的 可视化库，与其他库良好整合}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns} \PY{c+c1}{\PYZsh{}\PYZsh{}此包是基于matplotlib的可视化包}
+        \PY{k+kn}{import} \PY{n+nn}{itables}\PY{n+nn}{.}\PY{n+nn}{interactive}\PY{c+c1}{\PYZsh{}每一个表都是交互型的表}
+        \PY{k+kn}{from} \PY{n+nn}{itables} \PY{k}{import} \PY{n}{show}
+        \PY{k+kn}{import} \PY{n+nn}{itables}\PY{n+nn}{.}\PY{n+nn}{options} \PY{k}{as} \PY{n+nn}{opt}
+        \PY{n}{opt}\PY{o}{.}\PY{n}{classes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{display}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nowrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{opt}\PY{o}{.}\PY{n}{lengthMenu} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{]}
+        \PY{n}{opt}\PY{o}{.}\PY{n}{maxBytes} \PY{o}{=} \PY{l+m+mi}{200000}
+        \PY{n}{opt}\PY{o}{.}\PY{n}{maxColumns}\PY{o}{=}\PY{l+m+mi}{100}
+        \PY{n}{opt}\PY{o}{.}\PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{150px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}导入自定义函数}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}当自定义函数和当前默认工作路径不一致时}
+        \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}自定义函数对应的路径}
+        \PY{k+kn}{import} \PY{n+nn}{self\PYZus{}f\PYZus{}2}  \PY{c+c1}{\PYZsh{}加载自定义的函数py文件}
+        \PY{c+c1}{\PYZsh{} sys.path}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}当自定义函数和当前默认工作路径一致时}
+        \PY{c+c1}{\PYZsh{} import FileWriteAbout  \PYZsh{} 导入另一个文件}
+        \PY{c+c1}{\PYZsh{} FileWriteAbout.writeList()  \PYZsh{}调用其中的函数名}
+        
+        \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} print(os.getcwd())\PYZsh{}显示当前路径}
+        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}更改路径，\PYZsq{}\PYZsq{}里面为更改的路径}
+\end{Verbatim}
+
+
+    \subsection{报告目的}\label{ux62a5ux544aux76eeux7684}
+
+    \subsection{数据来源}\label{ux6570ux636eux6765ux6e90}
+
+    \subsection{名词解释}\label{ux540dux8bcdux89e3ux91ca}
+
+    \subsection{数据读取\&基本情况查看}\label{ux6570ux636eux8bfbux53d6ux57faux672cux60c5ux51b5ux67e5ux770b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}数据读取}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+        \PY{n}{data}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scorecard\PYZus{}model\PYZus{}sample.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{target}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} show(data.head(),columnDefs=[\PYZob{}\PYZdq{}width\PYZdq{}: \PYZdq{}300px\PYZdq{}, \PYZdq{}targets\PYZdq{}: \PYZdq{}\PYZus{}all\PYZdq{}\PYZcb{}])}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m连续型变量分布\PYZbs{}n \PYZbs{}033[0m\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} show(data.describe(),columnDefs=[\PYZob{}\PYZdq{}width\PYZdq{}: \PYZdq{}200px\PYZdq{},\PYZdq{}high\PYZdq{}: \PYZdq{}80px\PYZdq{}, \PYZdq{}targets\PYZdq{}: \PYZdq{}\PYZus{}all\PYZdq{}\PYZcb{}])}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m离散型变量分布\PYZbs{}n \PYZbs{}033[0m\PYZdq{})}
+        \PY{c+c1}{\PYZsh{} show(data.describe(include=[\PYZsq{}object\PYZsq{}]))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5456 entries, 0 to 5455
+Data columns (total 37 columns):
+ \#   Column  Non-Null Count  Dtype         
+---  ------  --------------  -----         
+ 0   id      5456 non-null   int64         
+ 1   date    5456 non-null   datetime64[ns]
+ 2   v1      4324 non-null   float64       
+ 3   v2      5456 non-null   object        
+ 4   v3      4255 non-null   float64       
+ 5   v4      5293 non-null   float64       
+ 6   v5      5440 non-null   float64       
+ 7   v6      3454 non-null   float64       
+ 8   v7      2467 non-null   float64       
+ 9   v8      5456 non-null   int64         
+ 10  v9      5456 non-null   object        
+ 11  v10     5456 non-null   object        
+ 12  v11     5098 non-null   float64       
+ 13  v12     4967 non-null   float64       
+ 14  v14     5004 non-null   float64       
+ 15  v15     5070 non-null   float64       
+ 16  v16     2054 non-null   float64       
+ 17  v17     2054 non-null   object        
+ 18  v18     5176 non-null   float64       
+ 19  v19     5021 non-null   float64       
+ 20  v20     5155 non-null   float64       
+ 21  v21     5081 non-null   float64       
+ 22  v22     5205 non-null   float64       
+ 23  v23     5207 non-null   float64       
+ 24  v24     5034 non-null   float64       
+ 25  v25     5450 non-null   float64       
+ 26  v26     5456 non-null   int64         
+ 27  v27     4317 non-null   float64       
+ 28  v28     4424 non-null   float64       
+ 29  v29     4424 non-null   float64       
+ 30  v30     4424 non-null   float64       
+ 31  v31     4424 non-null   float64       
+ 32  v32     4427 non-null   float64       
+ 33  v33     3892 non-null   float64       
+ 34  v34     4324 non-null   float64       
+ 35  v35     5456 non-null   int64         
+ 36  target  5456 non-null   int64         
+dtypes: datetime64[ns](1), float64(27), int64(5), object(4)
+memory usage: 1.5+ MB
+None
+0    3496
+1    1404
+2     556
+Name: target, dtype: int64
+
+    \end{Verbatim}
+
+    \subsection{数据预处理}\label{ux6570ux636eux9884ux5904ux7406}
+
+\subsubsection{异常值检测\&处理}\label{ux5f02ux5e38ux503cux68c0ux6d4bux5904ux7406}
+
+针对异常变量可根据对数据对理解进行极端值分数映射转换或者删除极端值对应对样本
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}1.数据预处理}
+        
+        \PY{c+c1}{\PYZsh{}1.1异常值}
+            \PY{c+c1}{\PYZsh{}1.1.1异常值检测}
+        
+        \PY{n}{character\PYZus{}feature}\PY{p}{,}\PY{n}{count}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{character\PYZus{}VarFindFunc}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+        \PY{n}{data\PYZus{}num}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{character\PYZus{}feature}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m离散型变量个数}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m连续型变量个数}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{count}\PY{p}{)}
+        
+        \PY{n}{data\PYZus{}abnormal}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{data\PYZus{}abnormal}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{find\PYZus{}abnormal}\PY{p}{(}\PY{n}{data\PYZus{}abnormal}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} data\PYZus{}abnormal.head()}
+        \PY{c+c1}{\PYZsh{} data\PYZus{}abnormal.describe()}
+        \PY{n}{data\PYZus{}abnormal}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}查看离散型特征情况}
+        
+        \PY{c+c1}{\PYZsh{}针对异常变量可根据对数据对理解进行极端值分数映射转换或者删除极端值对应对样本}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{离散型变量个数
+ }} 4
+\textcolor{ansi-red-intense}{\textbf{连续型变量个数
+ }} 33
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}           v2    v9   v10   v17 v1\_abnormal
+        count   5456  5456  5456  2054        5456
+        unique     3     5     7     4           2
+        top        A     E     g     a  zhengchang
+        freq    4190  1688  1463   857        5107
+\end{Verbatim}
+            
+    \subsubsection{特征衍生}\label{ux7279ux5f81ux884dux751f}
+
+这里主要是做特征各种交叉衍生的工作
+
+    \subsubsection{缺失值检测\&处理}\label{ux7f3aux5931ux503cux68c0ux6d4bux5904ux7406}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}1.2.1缺失值统计}
+        
+        \PY{n}{feature\PYZus{}na}\PY{p}{,}\PY{n}{na\PYZus{}feature\PYZus{}num}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{findNaFunc}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{is\PYZus{}show\PYZus{}all}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{feature\PYZus{}na}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feature\PYZus{}na.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} feature\PYZus{}na=feature\PYZus{}na.rename(columns=\PYZob{}\PYZdq{}queshi\PYZus{}num\PYZdq{}:\PYZdq{}缺失值数量\PYZdq{},\PYZdq{}na\PYZus{}rate\PYZdq{}:\PYZdq{}缺失率\PYZdq{}\PYZcb{})}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m有缺失值的变量个数:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{na\PYZus{}feature\PYZus{}num}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m各变量缺失率展示}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{feature\PYZus{}na\PYZus{}show}\PY{o}{=}\PY{n}{feature\PYZus{}na}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{queshi\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{feature\PYZus{}na\PYZus{}show}\PY{o}{=}\PY{n}{feature\PYZus{}na\PYZus{}show}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{show}\PY{p}{(}\PY{n}{feature\PYZus{}na\PYZus{}show}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{有缺失值的变量个数:
+ }} 37
+\textcolor{ansi-red-intense}{\textbf{各变量缺失率展示
+ }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \paragraph{缺失过多特征删除}\label{ux7f3aux5931ux8fc7ux591aux7279ux5f81ux5220ux9664}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}缺失过多特征删除}
+        \PY{n}{delete\PYZus{}feature}\PY{o}{=}\PY{n}{feature\PYZus{}na}\PY{p}{[}\PY{n}{feature\PYZus{}na}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{na\PYZus{}rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{o}{.}\PY{n}{var\PYZus{}name} \PY{c+c1}{\PYZsh{}当不想删除缺失特征时，可提高na\PYZus{}rate阈值}
+        \PY{n}{data\PYZus{}delete}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{delete\PYZus{}feature}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} data\PYZus{}delete.info()}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m删除的缺失值过高的特征:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{delete\PYZus{}feature}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{删除的缺失值过高的特征:
+ }} Series([], Name: var\_name, dtype: object)
+
+    \end{Verbatim}
+
+    \paragraph{直接填充默认缺失值}\label{ux76f4ux63a5ux586bux5145ux9ed8ux8ba4ux7f3aux5931ux503c}
+
+\begin{itemize}
+\item
+  连续型特征填充-999，离散型特征填充``缺失''字样
+\item
+  另外的缺失值填充方法
+
+  \begin{itemize}
+  \tightlist
+  \item
+    根据相关性填充
+  \item
+    根据后续结果看是否缺失值要根据特征中位数或者均值来填补
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}直接填充默认缺失值，连续型特征填充\PYZhy{}999，离散型特征填充“缺失”字样}
+        \PY{n}{data\PYZus{}fillna}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{na\PYZus{}fill}\PY{p}{(}\PY{n}{data\PYZus{}delete}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m缺失值填充后变量分布}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{show}\PY{p}{(}\PY{n}{data\PYZus{}fillna}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} show(data\PYZus{}fillna.describe(include=[\PYZsq{}object\PYZsq{}]))}
+        \PY{n}{data\PYZus{}fillna}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data\PYZus{}fillna.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}另外的缺失值填充方法}
+        \PY{c+c1}{\PYZsh{}根据相关性填充}
+        \PY{c+c1}{\PYZsh{}根据后续结果看是否缺失值要根据特征中位数或者均值来填补}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{缺失值填充后变量分布
+ }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \subsection{特征筛选}\label{ux7279ux5f81ux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}训练集，时间外验证集拆分}
+        \PY{n}{data\PYZus{}fillna}\PY{o}{=}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=}\PY{l+m+mi}{2}\PY{p}{]}
+        \PY{n}{train\PYZus{}data}\PY{o}{=}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZhy{}01\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{oot\PYZus{}data}\PY{o}{=}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{n}{data\PYZus{}fillna}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2019\PYZhy{}03\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}data\PYZus{}original.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{oot\PYZus{}data}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{oot\PYZus{}data\PYZus{}original.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m训练集好坏用户，1表示坏用户：}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{target}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m时间外验证集好坏用户，1表示坏用户：}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{oot\PYZus{}data}\PY{o}{.}\PY{n}{target}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}不作为自特征的特征}
+        \PY{n}{target}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}目标特征对应的字段名称}
+        \PY{n}{key\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{id}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}唯一识别用户的字段，在最后面需要知道具体是哪个用户的得分的时候，需要用到}
+        \PY{n}{target\PYZus{}series}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{not\PYZus{}model\PYZus{}feature}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{}建模前记录下train\PYZus{}data的用户ID和index}
+        \PY{n}{train\PYZus{}id}\PY{o}{=}\PY{n}{train\PYZus{}data}\PY{p}{[}\PY{n}{key\PYZus{}name}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{} print(train\PYZus{}id.head())}
+        
+        \PY{c+c1}{\PYZsh{}删除掉}
+        \PY{n}{train\PYZus{}data}\PY{o}{=}\PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{not\PYZus{}model\PYZus{}feature}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m去除事后以及事后以及根据经验较为波动不适宜入模的变量：}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{not\PYZus{}model\PYZus{}feature}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{训练集好坏用户，1表示坏用户：
+ }} 0    2466
+1    1167
+Name: target, dtype: int64
+\textcolor{ansi-red-intense}{\textbf{时间外验证集好坏用户，1表示坏用户：
+}} 0    1030
+1     237
+Name: target, dtype: int64
+\textcolor{ansi-red-intense}{\textbf{去除事后以及事后以及根据经验较为波动不适宜入模的变量：
+ }} ['id', 'date']
+
+    \end{Verbatim}
+
+    \subsubsection{psi筛选}\label{psiux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} psi筛选}
+         \PY{c+c1}{\PYZsh{} 3.1psi筛选}
+         \PY{n}{all\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{x}\PY{o}{!=}\PY{n}{target}\PY{p}{]}
+         \PY{n}{psi\PYZus{}tup} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{all\PYZus{}col}\PY{p}{:}
+             \PY{n}{psi}\PY{p}{,}\PY{n}{psi\PYZus{}bin\PYZus{}df} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{cal\PYZus{}psi}\PY{p}{(}\PY{n}{train\PYZus{}data}\PY{p}{,}\PY{n}{oot\PYZus{}data}\PY{p}{,}\PY{n}{col}\PY{p}{)}
+             \PY{n}{psi\PYZus{}tup}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{col}\PY{p}{,}\PY{n}{psi}\PY{p}{)}\PY{p}{)}
+         \PY{n}{psi\PYZus{}delete} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n}{psi\PYZus{}tup} \PY{k}{if} \PY{n}{y}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{]}\PY{c+c1}{\PYZsh{}这里psi阈值定位0.25}
+         
+         \PY{c+c1}{\PYZsh{}变量和psi转换成数据框}
+         \PY{n}{psi\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{psi\PYZus{}tup}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{psi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{psi\PYZus{}df}\PY{o}{=}\PY{n}{psi\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{var\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{psi\PYZus{}df}\PY{o}{=}\PY{n}{psi\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{psi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{train} \PY{o}{=} \PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{psi\PYZus{}delete}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31mpsi筛选删除的特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{psi\PYZus{}delete}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31mpsi筛选的特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m各变量psi: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{psi\PYZus{}df}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31mpsi筛选特征完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{psi筛选删除的特征: }} []
+\textcolor{ansi-red-intense}{\textbf{psi筛选的特征: }} Index(['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10', 'v11',
+       'v12', 'v14', 'v15', 'v16', 'v17', 'v18', 'v19', 'v20', 'v21', 'v22',
+       'v23', 'v24', 'v25', 'v26', 'v27', 'v28', 'v29', 'v30', 'v31', 'v32',
+       'v33', 'v34', 'v35', 'target'],
+      dtype='object')
+\textcolor{ansi-red-intense}{\textbf{各变量psi: }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{psi筛选特征完成--------------------------------}}
+
+    \end{Verbatim}
+
+    \subsubsection{随机森林筛选特征}\label{ux968fux673aux68eeux6797ux7b5bux9009ux7279ux5f81}
+
+此版本，没有使用随机森林筛选变量，即所有变量都进入下一轮iv的筛选
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} df=train}
+         \PY{c+c1}{\PYZsh{} le=preprocessing.LabelEncoder()}
+         \PY{c+c1}{\PYZsh{} character\PYZus{}name,cate\PYZus{}count=self\PYZus{}f\PYZus{}2.character\PYZus{}VarFindFunc(df)}
+         \PY{c+c1}{\PYZsh{} df\PYZus{}new=df.copy()}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} print(df\PYZus{}new.info())}
+         \PY{c+c1}{\PYZsh{} character\PYZus{}name.remove(target)}
+         \PY{c+c1}{\PYZsh{} for i in character\PYZus{}name:}
+         \PY{c+c1}{\PYZsh{}     code\PYZus{}list=list(df\PYZus{}new[i].unique())}
+         \PY{c+c1}{\PYZsh{}     encoder= le.fit(code\PYZus{}list)}
+         \PY{c+c1}{\PYZsh{}     print(i)}
+         \PY{c+c1}{\PYZsh{}     print(encoder)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}     df\PYZus{}new[i] = encoder.transform(df\PYZus{}new[i])}
+         \PY{c+c1}{\PYZsh{}     print(df\PYZus{}new[i])}
+                     
+         \PY{c+c1}{\PYZsh{} show(df\PYZus{}new)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}2.2随机森林筛选特征}
+         \PY{c+c1}{\PYZsh{}由于树模型不能处理非数值型特征，对离散型特征进行labelencoder编码，即将离散型特征使用连续数字来编码，}
+         \PY{c+c1}{\PYZsh{}没有啥业务含义，只是一个将离散型特征映射为数字而已}
+         
+         
+         \PY{c+c1}{\PYZsh{}！重要，当没有psi这步时，需要进行这步赋值}
+         \PY{c+c1}{\PYZsh{} train=train\PYZus{}data}
+         
+         \PY{n}{data\PYZus{}label\PYZus{}encode}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{feature\PYZus{}labelencoder}\PY{p}{(}\PY{n}{train}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{}将重要性大于一定阈值的特征筛选出来          }
+         \PY{n}{df\PYZus{}random\PYZus{}var}\PY{p}{,}\PY{n}{importance\PYZus{}list\PYZus{}delete}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{Random\PYZus{}feature\PYZus{}filter}\PY{p}{(}\PY{n}{data\PYZus{}label\PYZus{}encode}\PY{p}{,}\PY{n}{im\PYZus{}value}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}
+         \PY{n}{random\PYZus{}var\PYZus{}name}\PY{o}{=}\PY{n}{df\PYZus{}random\PYZus{}var}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{var\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{c+c1}{\PYZsh{}重要度大于阈值到特征，不含目标特征}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m随机森林删除的特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{importance\PYZus{}list\PYZus{}delete}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m随机森林筛选的特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{df\PYZus{}random\PYZus{}var}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}random\PYZus{}var}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{df\PYZus{}random\PYZus{}var.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{random\PYZus{}var\PYZus{}name}\PY{o}{=}\PY{n}{random\PYZus{}var\PYZus{}name}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{target\PYZus{}series}\PY{p}{)}\PY{c+c1}{\PYZsh{}添加目标特征，即y特征}
+         \PY{n}{train}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{n}{random\PYZus{}var\PYZus{}name}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{随机森林删除的特征: }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{随机森林筛选的特征: }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \subsubsection{iv筛选}\label{ivux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}2.3iv筛选}
+         
+         \PY{c+c1}{\PYZsh{} 特征分箱,默认用的是决策树分箱}
+         \PY{n}{train\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{train}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{x}\PY{o}{!=}\PY{n}{target}\PY{p}{]}
+         \PY{n}{bin\PYZus{}df\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{cut\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{train\PYZus{}col}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{bin\PYZus{}df}\PY{p}{,}\PY{n}{cut} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{binning\PYZus{}var}\PY{p}{(}\PY{n}{train}\PY{p}{,}\PY{n}{col}\PY{p}{,}\PY{n}{target}\PY{p}{)}
+                 \PY{n}{bin\PYZus{}df\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{bin\PYZus{}df}\PY{p}{)}
+                 \PY{n}{cut\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cut}\PY{p}{)}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{pass}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m特征分箱完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print(bin\PYZus{}df\PYZus{}list[0])}
+         
+         \PY{n}{bin\PYZus{}df\PYZus{}list\PYZus{}copy}\PY{o}{=}\PY{n}{bin\PYZus{}df\PYZus{}list}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{iv\PYZus{}df}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{iv\PYZus{}transform\PYZus{}df}\PY{p}{(}\PY{n}{bin\PYZus{}df\PYZus{}list\PYZus{}copy}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(bin\PYZus{}df\PYZus{}list[0])\PYZsh{}为什么会改变呢}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m变量iv以及分箱表 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{iv\PYZus{}df}\PY{p}{,}\PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{90px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{iv\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iv\PYZus{}df.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{特征分箱完成---------------------------}}
+\textcolor{ansi-red-intense}{\textbf{变量iv以及分箱表 }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} 保存每个特征的分割点list，此步骤需要在剔除}
+         \PY{n}{cut\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{dd}\PY{p}{,}\PY{n}{cc} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{bin\PYZus{}df\PYZus{}list}\PY{p}{,}\PY{n}{cut\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{n}{col} \PY{o}{=} \PY{n}{dd}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}
+         \PY{c+c1}{\PYZsh{}     print(col)}
+         \PY{c+c1}{\PYZsh{}     col = dd[\PYZsq{}var\PYZus{}name\PYZsq{}].unique()}
+             \PY{n}{cut\PYZus{}dict}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{cc}
+             
+         \PY{c+c1}{\PYZsh{} print(len(cut\PYZus{}dict))}
+         
+         \PY{c+c1}{\PYZsh{} 剔除iv无限大的特征}
+         \PY{n}{woe\PYZus{}inf\PYZus{}var}\PY{o}{=}\PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{IV}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31mwoe存在inf的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{woe\PYZus{}inf\PYZus{}var}\PY{p}{)}
+         \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{IV}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{!=}\PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} print(bin\PYZus{}df\PYZus{}list)}
+         
+         \PY{c+c1}{\PYZsh{} 将IV从大到小进行排序}
+         \PY{n}{iv\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list}\PY{p}{]}
+         \PY{n}{iv\PYZus{}value} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{IV}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list}\PY{p}{]}
+         \PY{n}{iv\PYZus{}sort} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{iv\PYZus{}col}\PY{p}{,}\PY{n}{iv\PYZus{}value}\PY{p}{)}\PY{p}{,}\PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} iv筛选，筛选iv大于0.02的特征}
+         \PY{n}{iv\PYZus{}select\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n}{iv\PYZus{}sort} \PY{k}{if} \PY{n}{y}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.02}\PY{p}{]}
+         \PY{n}{iv\PYZus{}delete\PYZus{}col}\PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n}{iv\PYZus{}sort} \PY{k}{if} \PY{n}{y}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.02}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31miv筛选的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{iv\PYZus{}select\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31miv删除的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{iv\PYZus{}delete\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31miv筛选特征完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{woe存在inf的特征:}} ['v28']
+\textcolor{ansi-red-intense}{\textbf{iv筛选的特征:}} ['v5', 'v12', 'v23', 'v15', 'v22', 'v20', 'v19', 'v11', 'v16', 'v21', 'v25', 'v17', 'v18', 'v4', 'v14', 'v9', 'v24', 'v10', 'v26', 'v29', 'v3', 'v33', 'v1', 'v34', 'v2', 'v31', 'v6', 'v35', 'v7', 'v27']
+\textcolor{ansi-red-intense}{\textbf{iv删除的特征:}} ['v30', 'v32', 'v8']
+\textcolor{ansi-red-intense}{\textbf{iv筛选特征完成-----------------------------------}}
+
+    \end{Verbatim}
+
+    \subsubsection{人工去除偏事后特征\&iv箱数过多特征}\label{ux4ebaux5de5ux53bbux9664ux504fux4e8bux540eux7279ux5f81ivux7bb1ux6570ux8fc7ux591aux7279ux5f81}
+
+之所以在这个步骤去除，是因为一定程度上做过特征筛选，特征没有那么多了，可以更好地对每个特征进行解读；为什么放在相关性筛选之前做这个动作，是因为相关性筛选里面涉及到不同变量间关系而对变量进行删除，可能存在事后变量的存在而导致删除其余非事后变量这种现象，因此人工剔除偏事后特征在这一步做相对比较合适；
+
+    \subsubsection{相关性筛选}\label{ux76f8ux5173ux6027ux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}2.5相关性筛选，多重共线性筛选}
+         \PY{c+c1}{\PYZsh{} 特征分类}
+         \PY{n}{cate\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{num\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{iv\PYZus{}select\PYZus{}col}\PY{p}{:}
+             \PY{k}{if} \PY{n}{train}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dtype}\PY{o}{==}\PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o+ow}{or} \PY{n}{train}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{dtype}\PY{o}{==}\PY{n}{np}\PY{o}{.}\PY{n}{dtype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bool}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o+ow}{or} \PY{n}{train}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{:}
+                 \PY{n}{cate\PYZus{}col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{num\PYZus{}col}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}相关性筛选，默认相关系数阈值0.7}
+         \PY{n}{corr}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{n}{num\PYZus{}col}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m相关矩阵}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{corr}\PY{p}{,}\PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{250px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{corr}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{corr.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}按照iv高低删除相关性高的变量}
+         \PY{n}{corr\PYZus{}select\PYZus{}col}\PY{p}{,}\PY{n}{corr\PYZus{}delete\PYZus{}col}\PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{forward\PYZus{}corr\PYZus{}delete}\PY{p}{(}\PY{n}{train}\PY{p}{,}\PY{n}{num\PYZus{}col}\PY{p}{,}\PY{n}{cut\PYZus{}value}\PY{o}{=}\PY{l+m+mf}{0.72}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m相关性筛选的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{corr\PYZus{}select\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m相关性筛选删除的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{corr\PYZus{}delete\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m连续变量相关性筛选完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}  \PYZsh{} 多重共线性筛选，系数阈值10}
+         \PY{c+c1}{\PYZsh{} vif\PYZus{}select\PYZus{}col,vif\PYZus{}delete\PYZus{}col = self\PYZus{}f\PYZus{}2.vif\PYZus{}delete(train,corr\PYZus{}select\PYZus{}col)}
+         
+         
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m多重共线性筛选的特征:\PYZbs{}033[0m\PYZdq{},vif\PYZus{}select\PYZus{}col)}
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m多重共线性删除的特征:\PYZbs{}033[0m\PYZdq{},vif\PYZus{}delete\PYZus{}col)}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}\PYZbs{}033[1;31m连续变量多重共线性筛选完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZbs{}033[0m\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{相关矩阵}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{相关性筛选的特征:}} ['v5', 'v12', 'v23', 'v16', 'v21', 'v25', 'v4', 'v24', 'v3', 'v33', 'v6', 'v35', 'v7', 'v27']
+\textcolor{ansi-red-intense}{\textbf{相关性筛选删除的特征:}} ['v15', 'v22', 'v20', 'v19', 'v11', 'v18', 'v14', 'v1', 'v34', 'v31']
+\textcolor{ansi-red-intense}{\textbf{连续变量相关性筛选完成----------------------------- }}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{iv\PYZus{}df\PYZus{}chubu\PYZus{}filter}\PY{o}{=}\PY{n}{iv\PYZus{}df}\PY{p}{[}\PY{n}{iv\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{col}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{corr\PYZus{}select\PYZus{}col}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} iv\PYZus{}df\PYZus{}chubu\PYZus{}filter=iv\PYZus{}df[iv\PYZus{}df[\PYZdq{}col\PYZdq{}].isin(vif\PYZus{}delete\PYZus{}col)]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m初筛后剩余变量的iv列表}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{iv\PYZus{}df\PYZus{}chubu\PYZus{}filter}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{初筛后剩余变量的iv列表}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \subsubsection{分箱调整}\label{ux5206ux7bb1ux8c03ux6574}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}分箱不单调的变量}
+         \PY{n}{nan\PYZus{}value}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{999}
+         \PY{c+c1}{\PYZsh{} trim\PYZus{}var\PYZus{}dict = \PYZob{}k:v for k,v in cut\PYZus{}dict.items() if k in vif\PYZus{}select\PYZus{}col\PYZcb{}}
+         \PY{n}{trim\PYZus{}var\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{k}\PY{p}{:}\PY{n}{v} \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{cut\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{k} \PY{o+ow}{in} \PY{n}{corr\PYZus{}select\PYZus{}col}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}befor\PYZus{}adjust\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{bin\PYZus{}cut} \PY{o}{=} \PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+             \PY{n}{df\PYZus{}bin\PYZus{}before\PYZus{}adjust} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}\PY{o}{==}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{if} \PY{n}{nan\PYZus{}value} \PY{o+ow}{in} \PY{n}{bin\PYZus{}cut}\PY{p}{:} \PY{c+c1}{\PYZsh{} 当cut里有缺失映射值时，说明是把缺失单独分为一箱的，后续在进行调成单调分箱时}
+             \PY{c+c1}{\PYZsh{} 不考虑缺失的箱，故将缺失映射值剔除}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin\PYZus{}before\PYZus{}adjust}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin\PYZus{}before\PYZus{}adjust}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)} 
+         
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}decreasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)} \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}increasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}befor\PYZus{}adjust\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m调整前\PYZus{}woe不单调的变量}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}befor\PYZus{}adjust\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{调整前\_woe不单调的变量}} ['v6', 'v7', 'v35']
+
+    \end{Verbatim}
+
+    \paragraph{自动分箱调整}\label{ux81eaux52a8ux5206ux7bb1ux8c03ux6574}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} 自动调整单调分箱}
+         
+         \PY{c+c1}{\PYZsh{}不需要调整分箱都变量筛选,筛选出需要调整分箱都变量}
+         \PY{n}{not\PYZus{}adjust\PYZus{}var}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{v6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}car}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(all\PYZus{}car)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{not\PYZus{}adjust\PYZus{}var}\PY{p}{:}
+             \PY{n}{all\PYZus{}car}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         
+         \PY{n}{need\PYZus{}adjust\PYZus{}var}\PY{o}{=}\PY{n}{all\PYZus{}car}
+         
+         
+         \PY{n}{trim\PYZus{}bin\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{need\PYZus{}adjust\PYZus{}var}\PY{p}{:}
+             \PY{n}{bin\PYZus{}cut} \PY{o}{=} \PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+             \PY{n}{df\PYZus{}bin} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}\PY{o}{==}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{if} \PY{n}{nan\PYZus{}value} \PY{o+ow}{in} \PY{n}{bin\PYZus{}cut}\PY{p}{:} \PY{c+c1}{\PYZsh{} 当cut里有缺失映射值时，说明是把缺失单独分为一箱的，后续在进行调成单调分箱时}
+             \PY{c+c1}{\PYZsh{} 不考虑缺失的箱，故将缺失映射值剔除}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZbs{}033[1;31m\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}033[0m\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}     print(col,bin\PYZus{}cut)}
+         \PY{c+c1}{\PYZsh{}     print(col,woe\PYZus{}list)}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}decreasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)} \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}increasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)}\PY{p}{:} 
+         \PY{c+c1}{\PYZsh{}         print(col)}
+                 \PY{n}{monot\PYZus{}cut}\PY{p}{,}\PY{n}{woe\PYZus{}lst\PYZus{}new} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{monot\PYZus{}trim}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{col}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{nan\PYZus{}value}\PY{o}{=}\PY{n}{nan\PYZus{}value}\PY{p}{,} \PY{n}{cut}\PY{o}{=}\PY{n}{bin\PYZus{}cut}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}         print(monot\PYZus{}cut)}
+         \PY{c+c1}{\PYZsh{}         print(woe\PYZus{}lst\PYZus{}new)}
+                 \PY{n}{monot\PYZus{}bin\PYZus{}df} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{binning\PYZus{}trim}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{col}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{cut}\PY{o}{=}\PY{n}{monot\PYZus{}cut}\PY{p}{,} \PY{n}{right\PYZus{}border}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{trim\PYZus{}bin\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{monot\PYZus{}bin\PYZus{}df}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{trim\PYZus{}bin\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}bin}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}添加不需要调整分箱都变量的分箱信息}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{not\PYZus{}adjust\PYZus{}var}\PY{p}{:}
+             \PY{n}{bin\PYZus{}cut} \PY{o}{=} \PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+             \PY{n}{df\PYZus{}bin} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}\PY{o}{==}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{trim\PYZus{}bin\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}bin}\PY{p}{)} 
+         
+         \PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}    
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{need\PYZus{}adjust\PYZus{}var}\PY{p}{:}
+             \PY{n}{bin\PYZus{}cut} \PY{o}{=} \PY{n}{trim\PYZus{}var\PYZus{}dict}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+             \PY{n}{df\PYZus{}bin\PYZus{}after\PYZus{}adjust} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{trim\PYZus{}bin\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name}\PY{o}{==}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{if} \PY{n}{nan\PYZus{}value} \PY{o+ow}{in} \PY{n}{bin\PYZus{}cut}\PY{p}{:} \PY{c+c1}{\PYZsh{} 当cut里有缺失映射值时，说明是把缺失单独分为一箱的，后续在进行调成单调分箱时}
+             \PY{c+c1}{\PYZsh{} 不考虑缺失的箱，故将缺失映射值剔除}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin\PYZus{}after\PYZus{}adjust}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{woe\PYZus{}list} \PY{o}{=} \PY{n}{df\PYZus{}bin\PYZus{}after\PYZus{}adjust}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)} 
+         
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}decreasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)} \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{judge\PYZus{}increasing}\PY{p}{(}\PY{n}{woe\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+         
+         \PY{n}{trim\PYZus{}bin\PYZus{}list\PYZus{}copy}\PY{o}{=}\PY{n}{trim\PYZus{}bin\PYZus{}list}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{iv\PYZus{}transform\PYZus{}df}\PY{p}{(}\PY{n}{trim\PYZus{}bin\PYZus{}list\PYZus{}copy}\PY{p}{)}        
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m不单调也无需调整分箱的变量}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{not\PYZus{}adjust\PYZus{}var}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m调整后\PYZus{}仍然不单调的变量}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{col\PYZus{}not\PYZus{}dandiao\PYZus{}list}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m自动调整分箱后woe情况}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{不单调也无需调整分箱的变量}} ['v6']
+\textcolor{ansi-red-intense}{\textbf{调整后\_仍然不单调的变量}} ['v7']
+\textcolor{ansi-red-intense}{\textbf{自动调整分箱后woe情况}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \paragraph{针对自动调整分箱未单调变量\_手动调整分箱}\label{ux9488ux5bf9ux81eaux52a8ux8c03ux6574ux5206ux7bb1ux672aux5355ux8c03ux53d8ux91cf_ux624bux52a8ux8c03ux6574ux5206ux7bb1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}删除自动调整后不单调变量}
+         \PY{n}{col\PYZus{}rengong\PYZus{}tiaozheng\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         
+         \PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{o}{=}\PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{col\PYZus{}rengong\PYZus{}tiaozheng\PYZus{}list}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}删除自动调整后不单调变量后剩余的变量\PYZdq{},auto\PYZus{}adjust\PYZus{}iv\PYZus{}df.col.unique())}
+         
+         
+         \PY{c+c1}{\PYZsh{}针对自动调整没有单调的变量，手动调整}
+         \PY{n}{rengong\PYZus{}adjust\PYZus{}bin\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{app\PYZus{}game\PYZus{}action\PYZus{}cnt\PYZus{}bin} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{binning\PYZus{}trim}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{v7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{target}\PY{p}{,} 
+                                                         \PY{n}{cut}\PY{o}{=}\PY{p}{[}\PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{999}\PY{p}{,}\PY{l+m+mf}{5.5}\PY{p}{,}\PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{right\PYZus{}border}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{rengong\PYZus{}adjust\PYZus{}bin\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{app\PYZus{}game\PYZus{}action\PYZus{}cnt\PYZus{}bin}\PY{p}{)}
+         
+         
+         \PY{n}{rengong\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{iv\PYZus{}transform\PYZus{}df}\PY{p}{(}\PY{n}{rengong\PYZus{}adjust\PYZus{}bin\PYZus{}list}\PY{p}{)}  
+         
+         
+         \PY{c+c1}{\PYZsh{}添加人工调整分箱的变量}
+         
+         \PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{rengong\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{p}{,}\PY{n}{auto\PYZus{}adjust\PYZus{}iv\PYZus{}df}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all\PYZus{}rengong}\PY{o}{=}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{p}{[}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{col}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{col\PYZus{}rengong\PYZus{}tiaozheng\PYZus{}list}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m人工手动调整后整体woe情况}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all\PYZus{}rengong}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{人工手动调整后整体woe情况}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \paragraph{调整后的分箱再使用iv筛选一轮}\label{ux8c03ux6574ux540eux7684ux5206ux7bb1ux518dux4f7fux7528ivux7b5bux9009ux4e00ux8f6e}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} 调整后的分箱再根据iv筛选一遍}
+         
+         \PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{o}{=}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{p}{[}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IV}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.02}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} show(adjust\PYZus{}iv\PYZus{}df\PYZus{}all)}
+         
+         \PY{c+c1}{\PYZsh{} select\PYZus{}num\PYZus{}df = []}
+         \PY{c+c1}{\PYZsh{} select\PYZus{}num\PYZus{}var=[]}
+         \PY{c+c1}{\PYZsh{} for dd in trim\PYZus{}bin\PYZus{}list:}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} for dd in bin\PYZus{}df\PYZus{}list:}
+         \PY{c+c1}{\PYZsh{}     if dd.IV.iloc[0]\PYZgt{}=0.02 and dd.index.name in vif\PYZus{}select\PYZus{}col:}
+         \PY{c+c1}{\PYZsh{}         select\PYZus{}num\PYZus{}df.append(dd)}
+         \PY{c+c1}{\PYZsh{}         select\PYZus{}num\PYZus{}var.append(dd.index.name)}
+         
+         \PY{n}{after\PYZus{}adjust\PYZus{}var}\PY{o}{=}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{o}{.}\PY{n}{col}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m调整分箱后筛选的变量 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{after\PYZus{}adjust\PYZus{}var}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{调整分箱后筛选的变量 }} ['v7' 'v5' 'v12' 'v23' 'v16' 'v21' 'v25' 'v4' 'v24' 'v3' 'v33' 'v6' 'v35'
+ 'v27']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} 连续型特征的woe映射集合表}
+         \PY{c+c1}{\PYZsh{} woe\PYZus{}map\PYZus{}num = self\PYZus{}f\PYZus{}2.get\PYZus{}map\PYZus{}df(select\PYZus{}num\PYZus{}df)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{o}{=}\PY{n}{adjust\PYZus{}iv\PYZus{}df\PYZus{}all}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{woe\PYZus{}map\PYZus{}num.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} show(woe\PYZus{}map\PYZus{}num)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m连续型变量分箱调整后分箱和woe情况 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(woe\PYZus{}map\PYZus{}num.columns)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{连续型变量分箱调整后分箱和woe情况 }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cate\PYZus{}col}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     print(cate\PYZus{}col)}
+             \PY{n}{bin\PYZus{}cate\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{bin\PYZus{}df\PYZus{}list} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o+ow}{in} \PY{n}{cate\PYZus{}col}\PY{p}{]}
+             \PY{n}{select\PYZus{}cate\PYZus{}df}\PY{o}{=}\PY{n}{bin\PYZus{}cate\PYZus{}list}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} 剔除woe不单调的离散形特征,正常离散型特征无需管woe是否单调，除非是有等级顺序的离散型特征}
+         \PY{c+c1}{\PYZsh{}     select\PYZus{}cate\PYZus{}df=[]}
+         \PY{c+c1}{\PYZsh{}     for i,dd in enumerate(bin\PYZus{}cate\PYZus{}list):}
+         \PY{c+c1}{\PYZsh{}         woe\PYZus{}lst = dd[\PYZsq{}woe\PYZsq{}].tolist()}
+         \PY{c+c1}{\PYZsh{}         if self\PYZus{}f\PYZus{}2.judge\PYZus{}decreasing(woe\PYZus{}lst) or self\PYZus{}f\PYZus{}2.judge\PYZus{}increasing(woe\PYZus{}lst):}
+         \PY{c+c1}{\PYZsh{}             select\PYZus{}cate\PYZus{}df.append(dd)}
+             \PY{c+c1}{\PYZsh{} 离散型特征的woe映射集合表}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{select\PYZus{}cate\PYZus{}df}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}         woe\PYZus{}map\PYZus{}cate = self\PYZus{}f\PYZus{}2.get\PYZus{}map\PYZus{}df(select\PYZus{}cate\PYZus{}df)}
+                 \PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{iv\PYZus{}transform\PYZus{}df}\PY{p}{(}\PY{n}{select\PYZus{}cate\PYZus{}df}\PY{p}{)}  
+         \PY{c+c1}{\PYZsh{}         print(woe\PYZus{}map\PYZus{}cate)}
+                 \PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{woe\PYZus{}map\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{woe\PYZus{}map\PYZus{}cate}\PY{p}{,}\PY{n}{woe\PYZus{}map\PYZus{}num}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n}{woe\PYZus{}map\PYZus{}df} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}num}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31miv筛选后的离散型变量 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cate\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m连续和离散型变量分箱调整后分箱和woe情况 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{woe\PYZus{}map\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{iv筛选后的离散型变量 }} ['v17', 'v9', 'v10', 'v26', 'v29', 'v2']
+\textcolor{ansi-red-intense}{\textbf{连续和离散型变量分箱调整后分箱和woe情况 }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \subsubsection{woe编码后相关性\&多重共线性筛选}\label{woeux7f16ux7801ux540eux76f8ux5173ux6027ux591aux91cdux5171ux7ebfux6027ux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} woe编码后相关性筛选}
+         
+         \PY{c+c1}{\PYZsh{}对train使用woe编码替换}
+         \PY{n}{select\PYZus{}all\PYZus{}col} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{select\PYZus{}sort\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n}{iv\PYZus{}sort} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{select\PYZus{}all\PYZus{}col}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} print(select\PYZus{}sort\PYZus{}col)}
+         
+         \PY{n}{train2} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{select\PYZus{}sort\PYZus{}col}\PY{o}{+}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(train2.shape[0])}
+         
+         
+         \PY{c+c1}{\PYZsh{} woe映射}
+         \PY{n}{train\PYZus{}woe} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{var\PYZus{}mapping}\PY{p}{(}\PY{n}{train2}\PY{p}{,}\PY{n}{woe\PYZus{}map\PYZus{}df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{target}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{train\PYZus{}woe}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{select\PYZus{}sort\PYZus{}col}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{train\PYZus{}woe}\PY{p}{[}\PY{n}{target}\PY{p}{]}
+             
+         \PY{c+c1}{\PYZsh{}相关性展示}
+         \PY{n}{corr}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{n}{num\PYZus{}col}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{corr\PYZus{}woe}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{train\PYZus{}woe}\PY{p}{[}\PY{n}{select\PYZus{}sort\PYZus{}col}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{corr\PYZus{}woe}\PY{p}{,} \PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{200px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}相关性筛选，默认阈值0.7}
+         \PY{n}{corr\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{,}\PY{n}{corr\PYZus{}delete\PYZus{}col\PYZus{}woe} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{forward\PYZus{}corr\PYZus{}delete}\PY{p}{(}\PY{n}{train\PYZus{}woe}\PY{p}{,}\PY{n}{select\PYZus{}sort\PYZus{}col}\PY{p}{,}\PY{n}{cut\PYZus{}value}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m woe编码后相关性筛选的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{corr\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m woe编码后相关性删除的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{corr\PYZus{}delete\PYZus{}col\PYZus{}woe}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 相关性筛选完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}多重共线性筛选，系数阈值10}
+         \PY{n}{vif\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{,}\PY{n}{vif\PYZus{}delete\PYZus{}col\PYZus{}woe}  \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{vif\PYZus{}delete}\PY{p}{(}\PY{n}{train\PYZus{}woe}\PY{p}{,}\PY{n}{corr\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m woe编码后多重共线性筛选的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{vif\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m woe编码后多重共线性删除的特征:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{vif\PYZus{}delete\PYZus{}col\PYZus{}woe}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 多重共线性筛选完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}经过woe变换后的特征相关性和共线性筛选后的特征数据框}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{vif\PYZus{}select\PYZus{}col\PYZus{}woe}\PY{p}{]}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ woe编码后相关性筛选的特征:}} ['v5', 'v23', 'v21', 'v25', 'v9', 'v24', 'v29', 'v33', 'v2', 'v6', 'v35', 'v27']
+\textcolor{ansi-red-intense}{\textbf{ woe编码后相关性删除的特征:}} ['v12', 'v16', 'v17', 'v4', 'v10', 'v26', 'v3', 'v7']
+\textcolor{ansi-red-intense}{\textbf{ 相关性筛选完成-----------------------------}}
+\textcolor{ansi-red-intense}{\textbf{ woe编码后多重共线性筛选的特征:}} ['v5', 'v23', 'v21', 'v25', 'v9', 'v24', 'v29', 'v33', 'v2', 'v6', 'v35', 'v27']
+\textcolor{ansi-red-intense}{\textbf{ woe编码后多重共线性删除的特征:}} []
+\textcolor{ansi-red-intense}{\textbf{ 多重共线性筛选完成--------------------------}}
+
+    \end{Verbatim}
+
+    \subsubsection{显著性筛选}\label{ux663eux8457ux6027ux7b5bux9009}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} 3.8 显著性筛选，前向逐步回归}
+         \PY{n}{pvalue\PYZus{}select\PYZus{}col}\PY{p}{,}\PY{n}{pvalue\PYZus{}delete\PYZus{}col} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{forward\PYZus{}pvalue\PYZus{}delete}\PY{p}{(}\PY{n}{X1}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 显著性筛选的变量:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{pvalue\PYZus{}select\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 显著性筛选删除的变量:}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{pvalue\PYZus{}delete\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 显著性筛选完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimization terminated successfully.
+         Current function value: 0.512949
+         Iterations 6
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3631
+Method:                           MLE   Df Model:                            1
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.1829
+Time:                        09:41:36   Log-Likelihood:                -1863.5
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                1.779e-183
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7482      0.041    -18.432      0.000      -0.828      -0.669
+v5             1.0000      0.039     25.859      0.000       0.924       1.076
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.489407
+         Iterations 6
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3630
+Method:                           MLE   Df Model:                            2
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.2204
+Time:                        09:41:36   Log-Likelihood:                -1778.0
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                4.616e-219
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7331      0.042    -17.555      0.000      -0.815      -0.651
+v5             0.6848      0.045     15.204      0.000       0.596       0.773
+v23            0.5979      0.047     12.814      0.000       0.506       0.689
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.483113
+         Iterations 6
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3629
+Method:                           MLE   Df Model:                            3
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.2305
+Time:                        09:41:36   Log-Likelihood:                -1755.1
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                1.402e-227
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7407      0.042    -17.568      0.000      -0.823      -0.658
+v5             0.6265      0.046     13.664      0.000       0.537       0.716
+v23            0.4241      0.053      8.007      0.000       0.320       0.528
+v21            0.3801      0.056      6.791      0.000       0.270       0.490
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.452695
+         Iterations 6
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3628
+Method:                           MLE   Df Model:                            4
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.2789
+Time:                        09:41:36   Log-Likelihood:                -1644.6
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                3.515e-274
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7161      0.044    -16.385      0.000      -0.802      -0.630
+v5             0.6502      0.049     13.374      0.000       0.555       0.745
+v23            0.2768      0.056      4.915      0.000       0.166       0.387
+v21            0.2990      0.059      5.060      0.000       0.183       0.415
+v25            0.7339      0.051     14.530      0.000       0.635       0.833
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.418540
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3627
+Method:                           MLE   Df Model:                            5
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3333
+Time:                        09:41:36   Log-Likelihood:                -1520.6
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7422      0.046    -16.049      0.000      -0.833      -0.652
+v5             0.8422      0.053     15.842      0.000       0.738       0.946
+v23            0.1974      0.059      3.318      0.001       0.081       0.314
+v21            0.2507      0.062      4.060      0.000       0.130       0.372
+v25            0.4920      0.053      9.207      0.000       0.387       0.597
+v9             0.9841      0.067     14.643      0.000       0.852       1.116
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.416782
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3626
+Method:                           MLE   Df Model:                            6
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3361
+Time:                        09:41:36   Log-Likelihood:                -1514.2
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7382      0.046    -15.927      0.000      -0.829      -0.647
+v5             0.8213      0.054     15.348      0.000       0.716       0.926
+v23            0.1734      0.060      2.882      0.004       0.055       0.291
+v21            0.2286      0.062      3.670      0.000       0.107       0.351
+v25            0.4658      0.054      8.633      0.000       0.360       0.572
+v9             0.9410      0.068     13.793      0.000       0.807       1.075
+v24            0.2271      0.064      3.566      0.000       0.102       0.352
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.406610
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3625
+Method:                           MLE   Df Model:                            7
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3523
+Time:                        09:41:36   Log-Likelihood:                -1477.2
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7399      0.047    -15.738      0.000      -0.832      -0.648
+v5             0.7984      0.054     14.715      0.000       0.692       0.905
+v23            0.1476      0.061      2.406      0.016       0.027       0.268
+v21            0.2113      0.063      3.341      0.001       0.087       0.335
+v25            0.4795      0.055      8.742      0.000       0.372       0.587
+v9             0.9308      0.069     13.481      0.000       0.795       1.066
+v24            0.2235      0.064      3.467      0.001       0.097       0.350
+v29            0.7317      0.087      8.394      0.000       0.561       0.903
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.400327
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3624
+Method:                           MLE   Df Model:                            8
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3623
+Time:                        09:41:36   Log-Likelihood:                -1454.4
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7368      0.047    -15.553      0.000      -0.830      -0.644
+v5             0.7952      0.055     14.551      0.000       0.688       0.902
+v23            0.1217      0.062      1.961      0.050    6.88e-05       0.243
+v21            0.2096      0.064      3.284      0.001       0.085       0.335
+v25            0.4614      0.055      8.355      0.000       0.353       0.570
+v9             0.9303      0.069     13.413      0.000       0.794       1.066
+v24            0.2391      0.065      3.678      0.000       0.112       0.366
+v29            0.6549      0.088      7.433      0.000       0.482       0.828
+v33            0.6372      0.095      6.692      0.000       0.451       0.824
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.400327
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3623
+Method:                           MLE   Df Model:                            9
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3623
+Time:                        09:41:36   Log-Likelihood:                -1454.4
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7367      0.047    -15.519      0.000      -0.830      -0.644
+v5             0.7960      0.059     13.453      0.000       0.680       0.912
+v23            0.1217      0.062      1.960      0.050    1.23e-05       0.243
+v21            0.2096      0.064      3.284      0.001       0.085       0.335
+v25            0.4613      0.055      8.346      0.000       0.353       0.570
+v9             0.9303      0.069     13.412      0.000       0.794       1.066
+v24            0.2389      0.065      3.665      0.000       0.111       0.367
+v29            0.6549      0.088      7.433      0.000       0.482       0.828
+v33            0.6372      0.095      6.692      0.000       0.451       0.824
+v2            -0.0046      0.133     -0.035      0.972      -0.265       0.256
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.397237
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3623
+Method:                           MLE   Df Model:                            9
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3672
+Time:                        09:41:36   Log-Likelihood:                -1443.2
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7173      0.048    -15.052      0.000      -0.811      -0.624
+v5             0.9837      0.069     14.186      0.000       0.848       1.120
+v23            0.1057      0.063      1.687      0.092      -0.017       0.228
+v21            0.2058      0.064      3.199      0.001       0.080       0.332
+v25            0.4498      0.055      8.106      0.000       0.341       0.559
+v9             0.8934      0.070     12.823      0.000       0.757       1.030
+v24            0.2105      0.066      3.203      0.001       0.082       0.339
+v29            0.6561      0.088      7.422      0.000       0.483       0.829
+v33            0.6348      0.096      6.638      0.000       0.447       0.822
+v6            -0.9160      0.195     -4.688      0.000      -1.299      -0.533
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.396834
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3622
+Method:                           MLE   Df Model:                           10
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3679
+Time:                        09:41:36   Log-Likelihood:                -1441.7
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7168      0.048    -15.036      0.000      -0.810      -0.623
+v5             0.9770      0.069     14.073      0.000       0.841       1.113
+v23            0.1071      0.063      1.709      0.087      -0.016       0.230
+v21            0.1966      0.065      3.045      0.002       0.070       0.323
+v25            0.4572      0.056      8.204      0.000       0.348       0.566
+v9             0.8961      0.070     12.848      0.000       0.759       1.033
+v24            0.2129      0.066      3.237      0.001       0.084       0.342
+v29            0.6262      0.090      6.949      0.000       0.450       0.803
+v33            0.6353      0.096      6.642      0.000       0.448       0.823
+v6            -0.9312      0.196     -4.760      0.000      -1.315      -0.548
+v35            0.3383      0.197      1.715      0.086      -0.048       0.725
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+Optimization terminated successfully.
+         Current function value: 0.397194
+         Iterations 7
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:                 target   No. Observations:                 3633
+Model:                          Logit   Df Residuals:                     3622
+Method:                           MLE   Df Model:                           10
+Date:                Fri, 10 Apr 2020   Pseudo R-squ.:                  0.3673
+Time:                        09:41:36   Log-Likelihood:                -1443.0
+converged:                       True   LL-Null:                       -2280.8
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.7171      0.048    -15.047      0.000      -0.810      -0.624
+v5             0.9849      0.069     14.190      0.000       0.849       1.121
+v23            0.1059      0.063      1.690      0.091      -0.017       0.229
+v21            0.2054      0.064      3.194      0.001       0.079       0.332
+v25            0.4501      0.055      8.110      0.000       0.341       0.559
+v9             0.8942      0.070     12.824      0.000       0.758       1.031
+v24            0.2104      0.066      3.201      0.001       0.082       0.339
+v29            0.6482      0.089      7.253      0.000       0.473       0.823
+v33            0.6267      0.097      6.486      0.000       0.437       0.816
+v6            -0.9250      0.196     -4.717      0.000      -1.309      -0.541
+v27            0.1603      0.287      0.559      0.576      -0.402       0.723
+==============================================================================
+\textcolor{ansi-red-intense}{\textbf{ ---------------------------------------------------}}
+\textcolor{ansi-red-intense}{\textbf{ 显著性筛选的变量:}} ['v5', 'v23', 'v21', 'v25', 'v9', 'v24', 'v29', 'v33', 'v6']
+\textcolor{ansi-red-intense}{\textbf{ 显著性筛选删除的变量:}} ['v2', 'v35', 'v27']
+\textcolor{ansi-red-intense}{\textbf{ 显著性筛选完成--------------------------}}
+
+    \end{Verbatim}
+
+    \subsubsection{剔除系数和其他系数符号不一致的特征}\label{ux5254ux9664ux7cfbux6570ux548cux5176ux4ed6ux7cfbux6570ux7b26ux53f7ux4e0dux4e00ux81f4ux7684ux7279ux5f81}
+
+\textbf{这里之所以没有说系数为正或者为负，是因为如果计算woe时为坏比好，那么逻辑回归系数就为正，如果计算woe时为好比坏，那么逻辑回归系数就为负}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} 剔除系数为负数的特征}
+         \PY{n}{X2} \PY{o}{=} \PY{n}{X1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{pvalue\PYZus{}select\PYZus{}col}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} X2 = X1 \PYZsh{}不做显著性筛选时}
+         \PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{,}\PY{n}{coef\PYZus{}delete\PYZus{}col} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{forward\PYZus{}delete\PYZus{}coef}\PY{p}{(}\PY{n}{X2}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 删除系数为负的特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{coef\PYZus{}delete\PYZus{}col}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 最终入模特征: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 删除系数为负的特征: }} ['v6']
+\textcolor{ansi-red-intense}{\textbf{ 最终入模特征: }} ['v5', 'v23', 'v21', 'v25', 'v9', 'v24', 'v29', 'v33']
+
+    \end{Verbatim}
+
+    \subsection{模型训练和评价}\label{ux6a21ux578bux8badux7ec3ux548cux8bc4ux4ef7}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} LR建模}
+         \PY{n}{X3} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} x\PYZus{}train,x\PYZus{}valid,y\PYZus{}train,y\PYZus{}valid = train\PYZus{}test\PYZus{}split(X3,y,test\PYZus{}size=0.2,random\PYZus{}state=0)}
+         
+         \PY{c+c1}{\PYZsh{}当没有验证集时}
+         \PY{n}{x\PYZus{}train}\PY{o}{=}\PY{n}{X3}
+         \PY{n}{y\PYZus{}train}\PY{o}{=}\PY{n}{y}
+         \PY{c+c1}{\PYZsh{} 保存训练集和验证集的index}
+         \PY{n}{train\PYZus{}index} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}index = x\PYZus{}valid.index.tolist()}
+         
+         \PY{c+c1}{\PYZsh{} show(X3,maxBytes=0, columnDefs=[\PYZob{}\PYZdq{}width\PYZdq{}: \PYZdq{}200px\PYZdq{}, \PYZdq{}targets\PYZdq{}: \PYZdq{}\PYZus{}all\PYZdq{}\PYZcb{}])}
+         
+         \PY{n}{lr\PYZus{}model} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{coe\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{y} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 截距：}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 特征系数： }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{coe\PYZus{}dict}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 建模完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 训练集好坏样本数：}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m 验证集好坏样本数：\PYZbs{}n \PYZbs{}033[0m\PYZdq{},y\PYZus{}valid.value\PYZus{}counts())}
+         
+         \PY{c+c1}{\PYZsh{}绘制训练集的auc，ks}
+         \PY{n}{train\PYZus{}pre} \PY{o}{=} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 训练集的AUC，KS: }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}roc}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{train\PYZus{}pre}\PY{p}{)}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}model\PYZus{}ks}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{train\PYZus{}pre}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 绘制验证集的auc，ks}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}pre = lr\PYZus{}model.predict\PYZus{}proba(x\PYZus{}valid)[:,1]}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}\PYZbs{}033[1;31m 验证集的AUC，KS: \PYZbs{}033[0m\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} self\PYZus{}f\PYZus{}2.plot\PYZus{}roc(y\PYZus{}valid,valid\PYZus{}pre)}
+         \PY{c+c1}{\PYZsh{} self\PYZus{}f\PYZus{}2.plot\PYZus{}model\PYZus{}ks(y\PYZus{}valid,valid\PYZus{}pre)  }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 截距：}} -0.736030043744375
+\textcolor{ansi-red-intense}{\textbf{ 特征系数： }} \{'v5': 0.7919303456118232, 'v23': 0.12330636280120848, 'v21': 0.20971723627613428, 'v25': 0.46069167497504304, 'v9': 0.9252733139242901, 'v24': 0.23907185552286095, 'v29': 0.6503526447438116, 'v33': 0.6318545025504799\}
+\textcolor{ansi-red-intense}{\textbf{ 建模完成----------------------------------------
+ }}
+\textcolor{ansi-red-intense}{\textbf{ 训练集好坏样本数：
+ }} 0    2466
+1    1167
+Name: target, dtype: int64
+\textcolor{ansi-red-intense}{\textbf{ 训练集的AUC，KS: }}
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{woe\PYZus{}map\PYZus{}df2} \PY{o}{=} \PY{n}{woe\PYZus{}map\PYZus{}df}\PY{p}{[}\PY{n}{woe\PYZus{}map\PYZus{}df}\PY{o}{.}\PY{n}{col}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 绘制测试集的auc，ks}
+         \PY{n}{oot} \PY{o}{=} \PY{n}{oot\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{o}{+}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{oot\PYZus{}woe} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{var\PYZus{}mapping}\PY{p}{(}\PY{n}{oot}\PY{p}{,}\PY{n}{woe\PYZus{}map\PYZus{}df2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{woe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{target}\PY{p}{)}
+         \PY{n}{x\PYZus{}oot} \PY{o}{=} \PY{n}{oot\PYZus{}woe}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y\PYZus{}oot} \PY{o}{=} \PY{n}{oot\PYZus{}woe}\PY{p}{[}\PY{n}{target}\PY{p}{]}
+         \PY{n}{oot\PYZus{}pre} \PY{o}{=} \PY{n}{lr\PYZus{}model}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{x\PYZus{}oot}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 时间外样本集好坏样本数 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}oot}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 时间外样本集的AUC，KS }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}roc}\PY{p}{(}\PY{n}{y\PYZus{}oot}\PY{p}{,}\PY{n}{oot\PYZus{}pre}\PY{p}{)}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}model\PYZus{}ks}\PY{p}{(}\PY{n}{y\PYZus{}oot}\PY{p}{,}\PY{n}{oot\PYZus{}pre}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 时间外样本集好坏样本数 }}
+0    1030
+1     237
+Name: target, dtype: int64
+\textcolor{ansi-red-intense}{\textbf{ 时间外样本集的AUC，KS }}
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{分数映射\&分数分布}\label{ux5206ux6570ux6620ux5c04ux5206ux6570ux5206ux5e03}
+
+    \subsubsection{分数刻度\&各入模变量相应分箱得分}\label{ux5206ux6570ux523bux5ea6ux5404ux5165ux6a21ux53d8ux91cfux76f8ux5e94ux5206ux7bb1ux5f97ux5206}
+
+\begin{itemize}
+\item
+  分数和违约几率对应的分数映射关系为\$ score=A-B*log(odds) \$
+  (odds=p/1-p,p为违约概率，\(log(odds)=B0+B1X+...BnX)\)
+\item
+  基于以下2个假设可以计算出A和B
+\item
+  分数越高用户越好；
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} 评分转换}
+         \PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{,}\PY{n}{base\PYZus{}score} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{cal\PYZus{}scale}\PY{p}{(}\PY{l+m+mi}{650}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{lr\PYZus{}model}\PY{p}{)}
+         \PY{n}{dict\PYZus{}score\PYZus{}scale}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{A}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{B}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{base\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{base\PYZus{}score}\PY{p}{\PYZcb{}}
+         \PY{n}{df\PYZus{}score\PYZus{}scale}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{dict\PYZus{}score\PYZus{}scale}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}score\PYZus{}scale}\PY{o}{=}\PY{n}{df\PYZus{}score\PYZus{}scale}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 评分卡刻度 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{df\PYZus{}score\PYZus{}scale}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} df\PYZus{}score\PYZus{}scale.to\PYZus{}excel(\PYZdq{}df\PYZus{}score\PYZus{}scale.xlsx\PYZdq{})}
+         
+         \PY{n}{score\PYZus{}map\PYZus{}df}  \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{get\PYZus{}score\PYZus{}map}\PY{p}{(}\PY{n}{woe\PYZus{}map\PYZus{}df2}\PY{p}{,}\PY{n}{coe\PYZus{}dict}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 变量各分箱对应的分数 }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{show}\PY{p}{(}\PY{n}{score\PYZus{}map\PYZus{}df}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{score\PYZus{}map\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{score\PYZus{}map\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score\PYZus{}map\PYZus{}df.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 评分卡刻度 }}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 变量各分箱对应的分数 }}
+
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['col', 'bins', 'IV', 'score', 'coe', 'woe', 'total', 'totalrate', 'bad',
+       'badrate', 'good', 'goodrate', 'badattr', 'goodattr', 'bin\_iv',
+       'min\_bin', 'max\_bin', 'fuzhu'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \subsubsection{训练集\&验证集\&时间外样本分数转换}\label{ux8badux7ec3ux96c6ux9a8cux8bc1ux96c6ux65f6ux95f4ux5916ux6837ux672cux5206ux6570ux8f6cux6362}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} 分数映射}
+         \PY{c+c1}{\PYZsh{}训练集}
+         \PY{n}{train2\PYZus{}new}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{train\PYZus{}data}\PY{p}{,}\PY{n}{train\PYZus{}id}\PY{p}{,}\PY{n}{left\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{right\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{c+c1}{\PYZsh{}之所以在这步就进行合并，将用户唯一识别ID识别出来，}
+         \PY{c+c1}{\PYZsh{}因为在下一步由于是针对原始训练集进行来训练集和验证集抽样，进行索引重制时，会更新原有索引，无法通过索引关联，嫁给你用户唯一识别码合并进来}
+         \PY{c+c1}{\PYZsh{} print(train2.shape[0])}
+         \PY{c+c1}{\PYZsh{} print(train2.columns)}
+         \PY{c+c1}{\PYZsh{} print(train2\PYZus{}new.shape[0])}
+         \PY{c+c1}{\PYZsh{} print(train2\PYZus{}new.columns)}
+         \PY{c+c1}{\PYZsh{} show(train2\PYZus{}new)}
+         
+         \PY{n}{train\PYZus{}data\PYZus{}2} \PY{o}{=} \PY{n}{train2\PYZus{}new}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{n}{key\PYZus{}name}\PY{p}{]}\PY{o}{+}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{o}{+}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}score} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{var\PYZus{}mapping}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}2}\PY{p}{,}\PY{n}{score\PYZus{}map\PYZus{}df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{target}\PY{p}{,}\PY{n}{key\PYZus{}name}\PY{o}{=}\PY{n}{key\PYZus{}name}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{base\PYZus{}score}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{:}
+             \PY{n}{train\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{n}{train\PYZus{}score}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+         \PY{n}{train\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} train\PYZus{}score\PYZus{}new=pd.merge(train\PYZus{}id,train\PYZus{}score,left\PYZus{}index=True,right\PYZus{}index=True)}
+         \PY{n}{train\PYZus{}score}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}score.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}验证集}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}data = train2\PYZus{}new.iloc[valid\PYZus{}index,:].loc[:,[key\PYZus{}name]+coef\PYZus{}select\PYZus{}col+[target]].reset\PYZus{}index(drop=True)}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}score = self\PYZus{}f\PYZus{}2.var\PYZus{}mapping(valid\PYZus{}data,score\PYZus{}map\PYZus{}df,\PYZsq{}score\PYZsq{},target)}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}score[\PYZsq{}final\PYZus{}score\PYZsq{}] = base\PYZus{}score}
+         \PY{c+c1}{\PYZsh{} for col in coef\PYZus{}select\PYZus{}col:}
+         \PY{c+c1}{\PYZsh{}     valid\PYZus{}score[\PYZsq{}final\PYZus{}score\PYZsq{}]+=valid\PYZus{}score[col]}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}score[\PYZsq{}final\PYZus{}score\PYZsq{}] = valid\PYZus{}score[\PYZsq{}final\PYZus{}score\PYZsq{}].map(lambda x:int(x))}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}score.to\PYZus{}excel(\PYZdq{}valid\PYZus{}score.xlsx\PYZdq{})}
+         
+         \PY{n}{oot\PYZus{}new}\PY{o}{=}\PY{n}{oot\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{n}{key\PYZus{}name}\PY{p}{]}\PY{o}{+}\PY{n}{coef\PYZus{}select\PYZus{}col}\PY{o}{+}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{oot\PYZus{}score} \PY{o}{=} \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{var\PYZus{}mapping}\PY{p}{(}\PY{n}{oot\PYZus{}new}\PY{p}{,}\PY{n}{score\PYZus{}map\PYZus{}df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{target}\PY{p}{,}\PY{n}{key\PYZus{}name}\PY{o}{=}\PY{n}{key\PYZus{}name}\PY{p}{)}
+         \PY{n}{oot\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{base\PYZus{}score}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{coef\PYZus{}select\PYZus{}col}\PY{p}{:}
+             \PY{n}{oot\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{n}{oot\PYZus{}score}\PY{p}{[}\PY{n}{col}\PY{p}{]}
+         \PY{n}{oot\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{oot\PYZus{}score}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{oot\PYZus{}score}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{oot\PYZus{}score.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[1;31m 评分转换完成\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s1}{[0m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 评分转换完成--------------------------------------- }}
+
+    \end{Verbatim}
+
+    \subsubsection{训练集\&验证集\&时间外样本分数分箱分布}\label{ux8badux7ec3ux96c6ux9a8cux8bc1ux96c6ux65f6ux95f4ux5916ux6837ux672cux5206ux6570ux5206ux7bb1ux5206ux5e03}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}分数分布，默认按照以下分位点分箱[0.1,0.2,0.3,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.8,0.9,1.0]}
+         \PY{c+c1}{\PYZsh{}训练集}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 训练集评分分箱分布}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{train\PYZus{}score\PYZus{}distribution}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{score\PYZus{}distribution}\PY{p}{(}\PY{n}{train\PYZus{}score}\PY{p}{,}\PY{n}{group\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cut}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cut\PYZus{}cut\PYZus{}list}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{train\PYZus{}score\PYZus{}distribution}\PY{p}{,}\PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{90px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}验证集}
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZbs{}033[1;31m 验证集评分分箱分布\PYZbs{}033[0m\PYZdq{})}
+         \PY{c+c1}{\PYZsh{} valid\PYZus{}score\PYZus{}distribution=self\PYZus{}f\PYZus{}2.score\PYZus{}distribution(valid\PYZus{}score,group\PYZus{}type=\PYZdq{}cut\PYZdq{},cut\PYZus{}cut\PYZus{}list=10)}
+         \PY{c+c1}{\PYZsh{} show(valid\PYZus{}score\PYZus{}distribution,columnDefs=[\PYZob{}\PYZdq{}width\PYZdq{}: \PYZdq{}90px\PYZdq{}, \PYZdq{}targets\PYZdq{}: \PYZdq{}\PYZus{}all\PYZdq{}\PYZcb{}])}
+         
+         \PY{c+c1}{\PYZsh{}时间外验证集}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[1;31m 时间外验证集评分分箱分布}\PY{l+s+se}{\PYZbs{}033}\PY{l+s+s2}{[0m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{oot\PYZus{}score\PYZus{}distribution}\PY{o}{=}\PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{score\PYZus{}distribution}\PY{p}{(}\PY{n}{oot\PYZus{}score}\PY{p}{,}\PY{n}{group\PYZus{}type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cut}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{cut\PYZus{}cut\PYZus{}list}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{n}{oot\PYZus{}score\PYZus{}distribution}\PY{p}{,}\PY{n}{columnDefs}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{90px}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{targets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 训练集的评分分布}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}score\PYZus{}hist}\PY{p}{(}\PY{n}{train\PYZus{}score}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{plt\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 验证集的评分分布}
+         \PY{c+c1}{\PYZsh{} self\PYZus{}f\PYZus{}2.plot\PYZus{}score\PYZus{}hist(valid\PYZus{}score, target, \PYZsq{}final\PYZus{}score\PYZsq{},\PYZsq{}valid\PYZus{}score\PYZsq{},plt\PYZus{}size=(6,4))}
+         \PY{c+c1}{\PYZsh{} 测试集的评分分布}
+         \PY{n}{self\PYZus{}f\PYZus{}2}\PY{o}{.}\PY{n}{plot\PYZus{}score\PYZus{}hist}\PY{p}{(}\PY{n}{oot\PYZus{}score}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{final\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oot\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{plt\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 训练集评分分箱分布}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-red-intense}{\textbf{ 时间外验证集评分分箱分布}}
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

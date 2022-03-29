@@ -1133,12 +1133,13 @@ def datetime_as_timezone(date_time, time_zone):
     utc = timezone('UTC')
     return date_time.replace(tzinfo=utc).astimezone(tz)
 
-
-import toad
+# todo 办公室电脑不支持toad
+# import toad
 import pydotplus
 from IPython.display import Image
 from sklearn.externals.six import StringIO
-from sklearn import tree  
+from sklearn import tree
+'''
 class auto_tree(object):
    
     def __init__(self,datasets,ex_lis,dep='target',min_samples=0.05,min_samples_leaf=200,min_samples_split=20,max_depth=4,is_bin=True):
@@ -1204,7 +1205,7 @@ class auto_tree(object):
         graph = pydotplus.graph_from_dot_data(dot_data.getvalue()) 
             
         return df_bin,self.bins,combiner,graph.create_png()
-
+'''
     
 def data_explore(df,df_name,col_width="200px",na_threshold=0.7,is_show_all=0):
     """
